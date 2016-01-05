@@ -16,6 +16,8 @@ pythonNN-mnist
 $ mkdir data 
 $ cd data // put mnist dataset here
 ```
+[MNIST Dataset](http://yann.lecun.com/exdb/mnist/)
+
 ## Requirement
 - numpy
 - [python-mnist](https://github.com/sorki/python-mnist)

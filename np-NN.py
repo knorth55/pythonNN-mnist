@@ -15,7 +15,7 @@ class NNetwork:
         self.middle_num = 50                                                        # num of middle layer 
         self.output_num = 10                                                        # num of output layer 
         self.nu = 0.1                                                               # 0.01 ~ 0.5
-        self.backPropN = 20                                                         # backpropagation step times
+        self.backPropN = 50                                                         # backpropagation step times
 
     def run(self,img):
         self.input_output = np.append(img,1.0)
