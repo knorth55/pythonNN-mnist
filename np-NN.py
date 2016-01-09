@@ -4,15 +4,15 @@ import numpy as np
 import sys
 import random
 import mnist
+import cv2
 
 class NNetwork:
     def __init__(self):
         self.mnist = mnist.MNIST('./data')
-        self.middle_num = 80 
-        # num of middle layer 
+        self.middle_num = 10                                                        # num of middle layer 
         self.output_num = 10                                                        # num of output layer 
         self.nu = 0.1                                                               # 0.01 ~ 0.5
-        self.backPropN = 30                                                          # backpropagation step times
+        self.backPropN = 30                                                         # backpropagation step times
 
     def load_training_data(self):
         print "start loading training data"
@@ -108,6 +108,16 @@ class NNetwork:
         self.accuracy = float(correct)/float(total) 
         print "accuracy: " + str(self.accuracy)
 
+    def optimal_img(self):
+        dirpath = "img/"
+        i = 0
+        for img in self.w1:
+            img = np.resize(img,(1,len(img)-1))
+            img = np.reshape(img,(28,28)) * 255
+            filepath = dirpath + "w1-" + str(i) + ".png"
+            cv2.imwrite(filepath,img)
+            i = i+1
+    
     def sigmoid(self,x):
         return 1.0/(1.0+np.exp(-x))
     
@@ -129,15 +139,21 @@ if __name__ == '__main__':
         NN.initW()
         NN.backPropagation()
         NN.identify()
+    elif sys.argv[1] == 'optimal':
+        NN.loadW()
+        NN.optimal_img()
     else:
         print '''
         Usage:
-        python neuralNetwork.py run [noise_rate] 
+        python np-NN.py run [noise_rate] 
             run back propagation for neural network and save w1 and w2
             option: noise rate for training data (default = 0.0)
 
-        python neuralNetwork.py load
+        python np-NN.py load
             load w1.txt and w2.txt file and run
+
+        python np-NN.py optimal
+            load w1.txt and create optimal stimulation imgs in /img
         '''
         sys.exit(0)
 
