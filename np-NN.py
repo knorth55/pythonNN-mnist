@@ -8,10 +8,11 @@ import mnist
 class NNetwork:
     def __init__(self):
         self.mnist = mnist.MNIST('./data')
-        self.middle_num = 50                                                        # num of middle layer 
+        self.middle_num = 80 
+        # num of middle layer 
         self.output_num = 10                                                        # num of output layer 
         self.nu = 0.1                                                               # 0.01 ~ 0.5
-        self.backPropN = 50                                                         # backpropagation step times
+        self.backPropN = 30                                                          # backpropagation step times
 
     def load_training_data(self):
         print "start loading training data"
