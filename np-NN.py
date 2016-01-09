@@ -63,6 +63,9 @@ class NNetwork:
 
     def imgload(self,data,noise_flag):
         if len(sys.argv) == 3 and noise_flag == 1:
+            if float(sys.argv[2]) > 1.0:
+                print "noise rate should be < 1.0"
+                sys.exit(0)
             noise = float(sys.argv[2])
             print "noise rate: " + str(noise)
         else:
@@ -71,7 +74,11 @@ class NNetwork:
         for img in data:
             x = []
             for num in img:
-                x.append((num*random.uniform((1-noise),(1+noise)))/255.0)
+                if random.random() < noise:
+                    num = random.random()
+                else:
+                    num = num /255.0
+                x.append(num)
             returnlist.append(x)
         return np.array(returnlist,dtype=np.double)
 
@@ -127,7 +134,6 @@ if __name__ == '__main__':
         python neuralNetwork.py run [noise_rate] 
             run back propagation for neural network and save w1 and w2
             option: noise rate for training data (default = 0.0)
-                    training_data* (1 - noise_rate) ~ training_data * (1 + noise_rate)
 
         python neuralNetwork.py load
             load w1.txt and w2.txt file and run
