@@ -109,14 +109,15 @@ class NNetwork:
         print "accuracy: " + str(self.accuracy)
 
     def optimal_img(self):
-        dirpath = "img/"
-        i = 0
+        filepath = "img/w1.png"
         for img in self.w1:
             img = np.resize(img,(1,len(img)-1))
             img = np.reshape(img,(28,28)) * 255
-            filepath = dirpath + "w1-" + str(i) + ".png"
-            cv2.imwrite(filepath,img)
-            i = i+1
+            try:
+                return_img = np.c_[return_img,img]
+            except:
+                return_img = img
+        cv2.imwrite(filepath,return_img)
     
     def sigmoid(self,x):
         return 1.0/(1.0+np.exp(-x))
